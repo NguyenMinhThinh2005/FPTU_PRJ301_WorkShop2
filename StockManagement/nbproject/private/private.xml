@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/web/WEB-INF/web.xml</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/LogoutController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/LoginController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/utils/DBUtils.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/web/index.html</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/UpdateAlertController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/MainController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/SearchController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/web/login.jsp</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/dto/Alert.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/web/createAlert.jsp</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/CreateController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/dao/AlertDAO.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/DeleteAlertController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/CreateAlertController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/web/stockList.jsp</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/ActionController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/web/alertList.jsp</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/dao/StockDAO.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/StockManagement/src/java/controllers/SearchAlertController.java</file>
+        </group>
+    </open-files>
+</project-private>

@@ -8,12 +8,20 @@ This project is a Java web application developed as part of a school assignment 
 Team Members
 
 Quoc Khanh (Leader)
+
 Thanh Dat
+
 Quoc Khoa
+
 Minh Thinh
+
 Technologies Used
 
 Java EE 7: For building the enterprise application.
+
 NetBeans 13 IDE: For development.
+
 Tomcat Server: For deploying the application.
+
 MVC2 Architecture: For structuring the application.
+

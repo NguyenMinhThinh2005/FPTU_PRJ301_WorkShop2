@@ -16,15 +16,25 @@ public class User {
     private String userID;
     private String password;
     private String roleID;
+    private String phone;
 
     public User() {
     }
 
-    public User(String fullName, String userID, String password, String roleID) {
+    public User(String fullName, String userID, String password, String roleID, String phone) {
         this.fullName = fullName;
         this.userID = userID;
         this.password = password;
         this.roleID = roleID;
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getFullName() {

@@ -8,7 +8,6 @@ import dao.ProductDAO;
 import dto.Product;
 import dto.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,7 +23,7 @@ import java.sql.SQLException;
 public class ProductManagement extends HttpServlet {
 
     private ProductDAO productDao = new ProductDAO();
-     
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -51,7 +50,7 @@ public class ProductManagement extends HttpServlet {
                     request.getRequestDispatcher("productList.jsp").forward(request, response);
                     break;
                 case "updateProduct":
-                    
+
                     break;
                 default:
                     throw new AssertionError();
@@ -80,8 +79,8 @@ public class ProductManagement extends HttpServlet {
             System.out.println("error in create Product");
         }
     }
-    
-    public void delete (HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException {
+
+    public void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException {
         int productID = Integer.parseInt(request.getParameter("productID"));
         if (productDao.delete(productID)) {
             request.setAttribute("MSG", "delete prodcut success");
@@ -90,9 +89,27 @@ public class ProductManagement extends HttpServlet {
         }
     }
 
-    public void update (HttpServletRequest request, HttpServletResponse response) {
-        
+    public void update(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            User user = (User) request.getAttribute("LOGIN_USER");
+            String name = request.getParameter("name");
+            int categoryID = Integer.parseInt(request.getParameter("categoryID"));
+            double price = Double.parseDouble(request.getParameter("price"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String status = request.getParameter("status");
+            int productID = Integer.parseInt(request.getParameter("productID"));
+            Product p = new Product(name, categoryID, price, quantity, user.getUserID(), status);
+            p.setProductID(productID);
+            if (productDao.update(p)) {
+                request.setAttribute("MSG", "update prodcut success");
+            } else {
+                request.setAttribute("MSG", "update prodcut false");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

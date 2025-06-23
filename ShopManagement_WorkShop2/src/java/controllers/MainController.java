@@ -78,7 +78,13 @@ public class MainController extends HttpServlet {
                 request.getRequestDispatcher("DeleteCategoryController").forward(request, response);
             } else if ("SearchCategory".equals(action)) {
                 request.getRequestDispatcher("SearchCategoryController").forward(request, response);
-            } else if (action.equals("ProductManagement")) {
+            } else if (action.equals("createProduct")) {
+                request.getRequestDispatcher("ProductManagement").forward(request, response);
+            } else if (action.equals("deleteProduct")) {
+                request.getRequestDispatcher("ProductManagement").forward(request, response);
+            } else if (action.equals("updateProduct")) {
+                request.getRequestDispatcher("ProductManagement").forward(request, response);
+            } else if (action.equals("searchProduct")) {
                 request.getRequestDispatcher("ProductManagement").forward(request, response);
             } else {
                 response.sendRedirect(url);

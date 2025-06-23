@@ -20,15 +20,14 @@ public class Product {
     public Product() {
     }
 
-    public Product(int productID, String name, int categoryID, double price, int quantity, String sellerID, String status,double discountPercent) {
-        this.productID = productID;
+    public Product(String name, int categoryID, double price, int quantity, String sellerID, String status) {
         this.name = name;
         this.categoryID = categoryID;
         this.price = price;
         this.quantity = quantity;
         this.sellerID = sellerID;
         this.status = status;
-        this.discountPercent = discountPercent;
+       
     }
 
     public double getDiscountPercent() {

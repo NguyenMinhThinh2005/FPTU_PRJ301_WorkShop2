@@ -51,19 +51,41 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+        @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String url = "default";
-        String action = "login";
+            throws ServletException, IOException {
+        String url = "login.jsp"; // Mặc định chuyển đến trang login
         try {
-            if (action.equals("login")) {
-                url = "LoginController";
+            String action = request.getParameter("action");
+            if ("Logout".equals(action)) {
+                response.sendRedirect("LogoutController");
+            } else if ("CreateUser".equals(action)) {
+                request.getRequestDispatcher("CreateUserController").forward(request, response);
+            } else if ("UpdateUser".equals(action)) {
+                request.getRequestDispatcher("UpdateUserController").forward(request, response);
+            } else if ("DeleteUser".equals(action)) {
+                request.getRequestDispatcher("DeleteUserController").forward(request, response);
+            } else if ("SearchUser".equals(action)) {
+                request.getRequestDispatcher("SearchUserController").forward(request, response);
+            } else if ("CreateCategory".equals(action)) {
+                request.getRequestDispatcher("CreateCategoryController").forward(request, response);
+            } else if ("UpdateCategory".equals(action)) {
+                request.getRequestDispatcher("UpdateCategoryController").forward(request, response);
+            } else if ("DeleteCategory".equals(action)) {
+                request.getRequestDispatcher("DeleteCategoryController").forward(request, response);
+            } else if ("SearchCategory".equals(action)) {
+                request.getRequestDispatcher("SearchCategoryController").forward(request, response);
+            } else if("Return".equals(action)){
+                request.getRequestDispatcher("ReturnController").forward(request, response);
+            } else if("CustomerCares".equals(action)){
+                request.getRequestDispatcher("CustomerCaresController").forward(request, response);
             }
-                 
-            request.getRequestDispatcher(url).forward(request, response);
+            else {
+                response.sendRedirect(url);
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            log("Error in MainController", e);
         }
     }
 

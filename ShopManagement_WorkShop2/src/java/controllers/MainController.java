@@ -78,7 +78,7 @@ public class MainController extends HttpServlet {
                 request.getRequestDispatcher("DeleteCategoryController").forward(request, response);
             } else if ("SearchCategory".equals(action)) {
                 request.getRequestDispatcher("SearchCategoryController").forward(request, response);
-            } else if (action.equals("createProduct")) {
+            } else if (action.equals("createProduct") || "filterProduct".equals(action)) {
                 request.getRequestDispatcher("ProductManagement").forward(request, response);
             } else if (action.equals("deleteProduct")) {
                 request.getRequestDispatcher("ProductManagement").forward(request, response);
@@ -86,6 +86,11 @@ public class MainController extends HttpServlet {
                 request.getRequestDispatcher("ProductManagement").forward(request, response);
             } else if (action.equals("searchProduct")) {
                 request.getRequestDispatcher("ProductManagement").forward(request, response);
+            } else if ("createPromotion".equals(action)
+                    || "deletePromotion".equals(action)
+                    || "updatePromotion".equals(action)
+                    || "searchPromotion".equals(action)) {
+                request.getRequestDispatcher("PromotionManagement").forward(request, response);
             } else {
                 request.getRequestDispatcher(url).forward(request, response);
             }

@@ -38,36 +38,78 @@ public class ProductManagement extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        User user = (User) request.getAttribute("LOGIN_USER");
+        if (action == null) {
+            action = "";
+        }
+        User user = (User) request.getSession().getAttribute("LOGIN_USER");
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        List<Product> productList = null;
         try {
             switch (action) {
                 case "createProduct":
                     create(request, response);
-                    request.setAttribute("productList", productDao.getAllBySellerId(user.getUserID()));
-                    request.getRequestDispatcher("productList.jsp").forward(request, response);
                     break;
                 case "deleteProduct":
                     delete(request, response);
-                    request.setAttribute("productList", productDao.getAllBySellerId(user.getUserID()));
-                    request.getRequestDispatcher("productList.jsp").forward(request, response);
                     break;
                 case "updateProduct":
                     update(request, response);
-                    request.setAttribute("productList", productDao.getAllBySellerId(user.getUserID()));
-                    request.getRequestDispatcher("productList.jsp").forward(request, response);
                     break;
                 case "searchProduct":
-                    List<Product> list = search(request, response);
-                    request.setAttribute("productList", list);
+                    productList = search(request, response);
+                    break;
+                case "filterProduct":
+                    productList = filter(request, response, user);
+                    request.setAttribute("productList", productList);
                     request.getRequestDispatcher("productList.jsp").forward(request, response);
                     break;
-                default:
-                    request.setAttribute("productList", productDao.getAllBySellerId(user.getUserID()));
-                    request.getRequestDispatcher("productList.jsp").forward(request, response);
             }
+
+            if (productList == null) {
+                if ("SE".equals(user.getRoleID())) {
+                    productList = productDao.getAllBySellerId(user.getUserID());
+                } else {
+                    productList = productDao.getAll();
+                }
+            }
+            request.setAttribute("productList", productList);
+            request.getRequestDispatcher("productList.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Product> filter(HttpServletRequest request, HttpServletResponse response, User user)
+            throws ServletException, IOException {
+        Integer cat = null;
+        try {
+            cat = Integer.parseInt(request.getParameter("categoryID"));
+        } catch (Exception ignored) {
+        }
+        String status = request.getParameter("status");
+        Double minPrice = null, maxPrice = null;
+        try {
+            minPrice = Double.parseDouble(request.getParameter("minPrice"));
+        } catch (Exception ignored) {
+        }
+        try {
+            maxPrice = Double.parseDouble(request.getParameter("maxPrice"));
+        } catch (Exception ignored) {
+        }
+        String sid = "SE".equals(user.getRoleID()) ? user.getUserID() : null;
+
+        String sortBy = request.getParameter("sortBy");
+        String sortOrder = request.getParameter("sortOrder");
+        List<Product> plist = null;
+        try {
+            plist = productDao.filterProducts(cat, status, minPrice, maxPrice, sid, sortBy, sortOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plist;
     }
 
     public void create(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException {
@@ -101,7 +143,7 @@ public class ProductManagement extends HttpServlet {
 
     public void update(HttpServletRequest request, HttpServletResponse response) {
         try {
-            User user = (User) request.getAttribute("LOGIN_USER");
+            User user = (User) request.getSession().getAttribute("LOGIN_USER");
             String name = request.getParameter("name");
             int categoryID = Integer.parseInt(request.getParameter("categoryID"));
             double price = Double.parseDouble(request.getParameter("price"));
@@ -119,12 +161,12 @@ public class ProductManagement extends HttpServlet {
             e.printStackTrace();
         }
     }
-    
-    public List<Product> search (HttpServletRequest request, HttpServletResponse response) {
+
+    public List<Product> search(HttpServletRequest request, HttpServletResponse response) {
         List<Product> list = new ArrayList();
         try {
             String keyword = request.getParameter("keyword");
-           
+
             list = productDao.search(keyword);
         } catch (Exception e) {
             e.printStackTrace();

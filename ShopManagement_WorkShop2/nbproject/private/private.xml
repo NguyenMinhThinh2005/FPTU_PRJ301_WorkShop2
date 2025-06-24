@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPTU/term4/prj301/src/ShopManagement_WorkShop2/src/java/dao/UserDao.java</file>
-            <file>file:/D:/FPTU/term4/prj301/src/ShopManagement_WorkShop2/src/java/dto/User.java</file>
-            <file>file:/D:/FPTU/term4/prj301/src/ShopManagement_WorkShop2/web/index.html</file>
-            <file>file:/D:/FPTU/term4/prj301/src/ShopManagement_WorkShop2/web/login.jsp</file>
-            <file>file:/D:/FPTU/term4/prj301/src/ShopManagement_WorkShop2/web/WEB-INF/web.xml</file>
-            <file>file:/D:/FPTU/term4/prj301/src/ShopManagement_WorkShop2/src/java/utils/DBUtils.java</file>
-            <file>file:/D:/FPTU/term4/prj301/src/ShopManagement_WorkShop2/src/java/controllers/MainController.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/web/createProduct.jsp</file>
+            <file>file:/D:/FPTU/term4/prj301/src/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/web/welcome.jsp</file>
+            <file>file:/D:/FPTU/term4/prj301/src/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/web/productList.jsp</file>
+            <file>file:/D:/FPTU/term4/prj301/src/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/dto/Product.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/dto/User.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/controllers/ProductManagement.java</file>
+            <file>file:/D:/FPTU/term4/prj301/src/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/dao/ProductDAO.java</file>
         </group>
     </open-files>
 </project-private>

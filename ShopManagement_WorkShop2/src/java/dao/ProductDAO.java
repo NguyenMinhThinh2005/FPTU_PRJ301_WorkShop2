@@ -137,4 +137,65 @@ public class ProductDAO {
         }
         return list;
     }
+
+    public List<Product> filterProducts(
+            Integer categoryID, String status,
+            Double minPrice, Double maxPrice,
+            String sellerID,
+            String sortBy, String sortOrder // mới
+    ) throws SQLException, ClassNotFoundException {
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM tblProducts WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+        if (categoryID != null) {
+            sql.append(" AND categoryID = ?");
+            params.add(categoryID);
+        }
+        if (status != null && !status.isEmpty()) {
+            sql.append(" AND status = ?");
+            params.add(status);
+        }
+        if (minPrice != null) {
+            sql.append(" AND price >= ?");
+            params.add(minPrice);
+        }
+        if (maxPrice != null) {
+            sql.append(" AND price <= ?");
+            params.add(maxPrice);
+        }
+        if (sellerID != null) {
+            sql.append(" AND sellerID = ?");
+            params.add(sellerID);
+        }
+
+        // Validate sortBy để tránh SQL Injection
+        Set<String> allowedSort = new HashSet<>(Arrays.asList("name", "price", "quantity"));
+        if (sortBy != null && allowedSort.contains(sortBy)) {
+            sql.append(" ORDER BY ").append(sortBy).append(" ");
+            if ("desc".equalsIgnoreCase(sortOrder)) {
+                sql.append("DESC");
+            } else {
+                sql.append("ASC");
+            }
+        }
+        List<Product> products = new ArrayList<>();
+        try ( Connection conn = DBUtils.getConnection();  PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductID(rs.getInt("productID"));
+                p.setName(rs.getString("name"));
+                p.setCategoryID(rs.getInt("categoryID"));
+                p.setPrice(rs.getDouble("price"));
+                p.setQuantity(rs.getInt("quantity"));
+                p.setSellerID(rs.getString("sellerID"));
+                p.setStatus(rs.getString("status"));
+                products.add(p);
+            }
+        }
+        return products;
+    }
 }

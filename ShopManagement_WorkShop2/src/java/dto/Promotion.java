@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author Thinh
  */
 public class Promotion {
+
     private int promoID;
     private String name;
     private double discountPercent;
@@ -18,8 +19,7 @@ public class Promotion {
     private Date endDate;
     private String status;
 
-    public Promotion(int promoID, String name, double discountPercent, Date startDate, Date endDate, String status) {
-        this.promoID = promoID;
+    public Promotion(String name, double discountPercent, Date startDate, Date endDate, String status) {
         this.name = name;
         this.discountPercent = discountPercent;
         this.startDate = startDate;
@@ -77,5 +77,5 @@ public class Promotion {
     public void setStatus(String status) {
         this.status = status;
     }
-            
+
 }

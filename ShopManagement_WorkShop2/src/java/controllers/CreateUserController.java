@@ -23,7 +23,7 @@ public class CreateUserController extends HttpServlet {
             resp.sendRedirect("login.jsp");
             return;
         }
-
+      
 
         try {
             String userID = req.getParameter("userID");

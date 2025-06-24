@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -55,10 +57,13 @@ public class ProductManagement extends HttpServlet {
                     request.getRequestDispatcher("productList.jsp").forward(request, response);
                     break;
                 case "searchProduct":
-                    
+                    List<Product> list = search(request, response);
+                    request.setAttribute("productList", list);
+                    request.getRequestDispatcher("productList.jsp").forward(request, response);
                     break;
                 default:
-                    throw new AssertionError();
+                    request.setAttribute("productList", productDao.getAllBySellerId(user.getUserID()));
+                    request.getRequestDispatcher("productList.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,6 +118,18 @@ public class ProductManagement extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<Product> search (HttpServletRequest request, HttpServletResponse response) {
+        List<Product> list = new ArrayList();
+        try {
+            String keyword = request.getParameter("keyword");
+           
+            list = productDao.search(keyword);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

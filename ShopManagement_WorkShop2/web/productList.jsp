@@ -12,11 +12,30 @@
         <title>ProductManagement</title>
     </head>
     <body>
-        <% ${param.LOGIN} 
-
-
-
+        <%
+            User user = (User) request.getSession().getAttribute("LOGIN_USER");
+            if (user == null) {
+                response.sendRedirect("login.jsp");
+                return;
+            }   
         %>
-        <h1>Hello World!</h1>
+        <h1>HI, ${sessionScope.LOGIN_USER.fullName}!</h1>
+
+        <h2>Product List</h2>
+        <form method="POST" action="MainController">
+            Search: <input type="text" name="searchProduct" placeholder="input id or name ">
+            <input type="submit" value="Find">
+        </form>
+
+        <table>
+            <tr>
+                <th>No</th>
+                <th>ProductID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>status</th>
+            </tr>
+        </table>
     </body>
 </html>

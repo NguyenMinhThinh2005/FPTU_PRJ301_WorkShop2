@@ -21,7 +21,7 @@ public class PromotionManagement extends HttpServlet {
         String action = request.getParameter("action");
         if (action == null) action = "";
         User user = (User) request.getSession().getAttribute("LOGIN_USER");
-        if (user == null || !"AD".equals(user.getRoleID()) || !"MK".equals(user.getRoleID())) {     
+        if (user == null || !"AD".equals(user.getRoleID()) && !"MK".equals(user.getRoleID())) {     
             response.sendRedirect("login.jsp");
             return;
         }
@@ -78,7 +78,7 @@ public class PromotionManagement extends HttpServlet {
             throws ServletException, IOException {
         try {
             int promoID = Integer.parseInt(request.getParameter("promoID"));
-            if (promotionDao.deelete(promoID)) {
+            if (promotionDao.delete(promoID)) {
                 request.setAttribute("MSG", "Delete promotion success");
             } else {
                 request.setAttribute("MSG", "Delete promotion failed");

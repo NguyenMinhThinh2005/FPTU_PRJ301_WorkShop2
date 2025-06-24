@@ -63,7 +63,7 @@ public class PromotionDAO {
         return result;
     }
 
-    public boolean deelete(int id) {
+    public boolean delete(int id) {
         boolean result = false;
         String sql = "delete from tblPromotions where promoID = ?";
         try {
@@ -94,6 +94,7 @@ public class PromotionDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Promotion promotion = new Promotion();
+                promotion.setName(rs.getString("name"));
                 promotion.setPromoID(rs.getInt("promoID"));
                 promotion.setDiscountPercent(rs.getDouble("discountPercent"));
                 promotion.setStartDate(rs.getDate("startDate"));
@@ -114,6 +115,7 @@ public class PromotionDAO {
             ResultSet rs = ps.executeQuery(); 
             while (rs.next()) {
                 Promotion promotion = new Promotion();
+                promotion.setName(rs.getString("name"));
                 promotion.setPromoID(rs.getInt("promoID"));
                 promotion.setDiscountPercent(rs.getDouble("discountPercent"));
                 promotion.setStartDate(rs.getDate("startDate"));

@@ -22,7 +22,7 @@ public class UserDAO {
             ps.setString(2, password);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return new User(userID, rs.getString("fullName"), rs.getString("roleID"), password, rs.getString("phone"));
+                    return new User(rs.getString("fullName"), userID, password, rs.getString("roleID"), rs.getString("phone"));
                 }
                 return null;
             }

@@ -14,7 +14,7 @@
     <body>
         <h1>Login</h1>
         <p style="color: red"> <c:out value="${sessionScope.MSG}"/> </p>
-        <form action="MainController" method="POST">
+        <form action="LoginController" method="POST">
             UserName: <input type="text" name="userName" placeholder="Username" required> <br>
             PassWord: <input type="password" name="passWord" placeholder="Password" required> <br>
             <input type="submit" name="action" value="login"> 

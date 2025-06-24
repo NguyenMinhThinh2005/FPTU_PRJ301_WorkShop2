@@ -16,15 +16,15 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String userID = req.getParameter("userID");
-        String password = req.getParameter("password");
+        String userID = req.getParameter("userName");
+        String password = req.getParameter("passWord");
         try {
             User user = new UserDAO().login(userID, password);
             if (user != null) {
                 req.getSession().setAttribute("LOGIN_USER", user);
                 resp.sendRedirect("welcome.jsp");
             } else {
-                req.setAttribute("ERROR", "Sai tài khoản hoặc mật khẩu.");
+                req.setAttribute("MSG", "cant find user pls try again");
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
             }
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getSession().invalidate(); // Đăng xuất
+        req.getSession().invalidate(); 
         resp.sendRedirect("login.jsp");
     }
 }

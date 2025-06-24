@@ -50,7 +50,12 @@ public class ProductManagement extends HttpServlet {
                     request.getRequestDispatcher("productList.jsp").forward(request, response);
                     break;
                 case "updateProduct":
-
+                    update(request, response);
+                    request.setAttribute("productList", productDao.getAllBySellerId(user.getUserID()));
+                    request.getRequestDispatcher("productList.jsp").forward(request, response);
+                    break;
+                case "searchProduct":
+                    
                     break;
                 default:
                     throw new AssertionError();
@@ -62,7 +67,7 @@ public class ProductManagement extends HttpServlet {
 
     public void create(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException {
         try {
-            User user = (User) request.getAttribute("LOGIN_USER");
+            User user = (User) request.getSession().getAttribute("LOGIN_USER");
             String name = request.getParameter("name");
             int categoryID = Integer.parseInt(request.getParameter("categoryID"));
             double price = Double.parseDouble(request.getParameter("price"));

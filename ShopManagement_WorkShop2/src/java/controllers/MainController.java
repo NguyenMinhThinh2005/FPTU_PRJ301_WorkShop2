@@ -87,7 +87,7 @@ public class MainController extends HttpServlet {
             } else if (action.equals("searchProduct")) {
                 request.getRequestDispatcher("ProductManagement").forward(request, response);
             } else {
-                response.sendRedirect(url);
+                request.getRequestDispatcher(url).forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -16,18 +16,26 @@ public class Product {
     private int quantity;
     private String sellerID;
     private String status;
-
+    private double discountPercent;
     public Product() {
     }
 
-    public Product(int productID, String name, int categoryID, double price, int quantity, String sellerID, String status) {
-        this.productID = productID;
+    public Product(String name, int categoryID, double price, int quantity, String sellerID, String status) {
         this.name = name;
         this.categoryID = categoryID;
         this.price = price;
         this.quantity = quantity;
         this.sellerID = sellerID;
         this.status = status;
+       
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
     }
 
     public int getProductID() {

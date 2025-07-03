@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/University/PRJ301/ws2/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/dao/ReturnDAO.java</file>
-            <file>file:/D:/University/PRJ301/ws2/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/dao/CustomerCaresDAO.java</file>
-            <file>file:/D:/University/PRJ301/ws2/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/dto/Return.java</file>
-            <file>file:/D:/University/PRJ301/ws2/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/dao/UserDao.java</file>
-            <file>file:/D:/University/PRJ301/ws2/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/controllers/ReturnController.java</file>
-            <file>file:/D:/University/PRJ301/ws2/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/controllers/CustomerCaresController.java</file>
-            <file>file:/D:/University/PRJ301/ws2/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/src/java/controllers/MainController.java</file>
+            <file>file:/D:/Term4/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/web/categoryManagement.jsp</file>
+            <file>file:/D:/Term4/FPTU_PRJ301_WorkShop2/ShopManagement_WorkShop2/web/userManagement.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controllers;
 
 import java.io.IOException;
@@ -17,22 +16,25 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author Thinh
  */
 public class MainController extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {    
+            throws ServletException, IOException {
         doPost(request, response);
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -40,57 +42,51 @@ public class MainController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-        @Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "login.jsp"; // Mặc định chuyển đến trang login
+        String url = "login.jsp";
         try {
             String action = request.getParameter("action");
             if ("Logout".equals(action)) {
                 response.sendRedirect("LogoutController");
-            } else if ("CreateUser".equals(action)) {
-                request.getRequestDispatcher("CreateUserController").forward(request, response);
-            } else if ("UpdateUser".equals(action)) {
-                request.getRequestDispatcher("UpdateUserController").forward(request, response);
-            } else if ("DeleteUser".equals(action)) {
-                request.getRequestDispatcher("DeleteUserController").forward(request, response);
-            } else if ("SearchUser".equals(action)) {
-                request.getRequestDispatcher("SearchUserController").forward(request, response);
-            } else if ("CreateCategory".equals(action)) {
-                request.getRequestDispatcher("CreateCategoryController").forward(request, response);
-            } else if ("UpdateCategory".equals(action)) {
-                request.getRequestDispatcher("UpdateCategoryController").forward(request, response);
-            } else if ("DeleteCategory".equals(action)) {
-                request.getRequestDispatcher("DeleteCategoryController").forward(request, response);
-            } else if ("SearchCategory".equals(action)) {
-                request.getRequestDispatcher("SearchCategoryController").forward(request, response);
-            } else if("Return".equals(action)){
-                request.getRequestDispatcher("ReturnController").forward(request, response);
-            } else if("CustomerCares".equals(action)){
-                request.getRequestDispatcher("CustomerCaresController").forward(request, response);
-            }
-            else {
-                response.sendRedirect(url);
+            } else if ("CreateUser".equals(action) || "UpdateUser".equals(action) || "DeleteUser".equals(action) || "SearchUser".equals(action)) {
+                request.getRequestDispatcher("UserManagement").forward(request, response);
+            } else if ("CreateCategory".equals(action) || "UpdateCategory".equals(action) || "DeleteCategory".equals(action) || "SearchCategory".equals(action)) {
+                request.getRequestDispatcher("CategoryManagement").forward(request, response);
+            } else if ("createPromotion".equals(action)
+                    || "deletePromotion".equals(action)
+                    || "updatePromotion".equals(action)
+                    || "searchPromotion".equals(action)) {
+                request.getRequestDispatcher("PromotionManagement").forward(request, response);
+            } else if ("addProductToPromotion".equals(action)) {
+                request.getRequestDispatcher("PromotionProductManagement").forward(request, response);
+            } else {
+                request.getRequestDispatcher(url).forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log("Error in MainController", e);
+            request.setAttribute("MSG", "An unexpected error occurred: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response); // Assuming you have an error.jsp
+        
         }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

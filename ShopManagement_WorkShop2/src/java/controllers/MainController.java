@@ -62,10 +62,30 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
             if ("Logout".equals(action)) {
                 response.sendRedirect("LogoutController");
-            } else if ("CreateUser".equals(action) || "UpdateUser".equals(action) || "DeleteUser".equals(action) || "SearchUser".equals(action)) {
-                request.getRequestDispatcher("UserManagement").forward(request, response);
-            } else if ("CreateCategory".equals(action) || "UpdateCategory".equals(action) || "DeleteCategory".equals(action) || "SearchCategory".equals(action)) {
-                request.getRequestDispatcher("CategoryManagement").forward(request, response);
+            } else if ("CreateUser".equals(action)) {
+                request.getRequestDispatcher("CreateUserController").forward(request, response);
+            } else if ("UpdateUser".equals(action)) {
+                request.getRequestDispatcher("UpdateUserController").forward(request, response);
+            } else if ("DeleteUser".equals(action)) {
+                request.getRequestDispatcher("DeleteUserController").forward(request, response);
+            } else if ("SearchUser".equals(action)) {
+                request.getRequestDispatcher("SearchUserController").forward(request, response);
+            } else if ("CreateCategory".equals(action)) {
+                request.getRequestDispatcher("CreateCategoryController").forward(request, response);
+            } else if ("UpdateCategory".equals(action)) {
+                request.getRequestDispatcher("UpdateCategoryController").forward(request, response);
+            } else if ("DeleteCategory".equals(action)) {
+                request.getRequestDispatcher("DeleteCategoryController").forward(request, response);
+            } else if ("SearchCategory".equals(action)) {
+                request.getRequestDispatcher("SearchCategoryController").forward(request, response);
+            } else if (action.equals("createProduct") || "filterProduct".equals(action)) {
+                request.getRequestDispatcher("ProductManagement").forward(request, response);
+            } else if (action.equals("deleteProduct")) {
+                request.getRequestDispatcher("ProductManagement").forward(request, response);
+            } else if (action.equals("updateProduct")) {
+                request.getRequestDispatcher("ProductManagement").forward(request, response);
+            } else if (action.equals("searchProduct")) {
+                request.getRequestDispatcher("ProductManagement").forward(request, response);
             } else if ("createPromotion".equals(action)
                     || "deletePromotion".equals(action)
                     || "updatePromotion".equals(action)
@@ -78,9 +98,6 @@ public class MainController extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("MSG", "An unexpected error occurred: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response); // Assuming you have an error.jsp
-        
         }
     }
 

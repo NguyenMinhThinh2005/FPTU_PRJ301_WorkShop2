@@ -71,6 +71,8 @@ public class ProductManagement extends HttpServlet {
             if (productList == null) {
                 if ("SE".equals(user.getRoleID())) {
                     productList = productDao.getAllBySellerId(user.getUserID());
+                } else if ("BU".equals(user.getRoleID())) {
+                    productList = productDao.getAllActiveAvailable();
                 } else {
                     productList = productDao.getAll();
                 }

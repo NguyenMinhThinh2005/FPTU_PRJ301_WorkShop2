@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>Edit User</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h2>Edit User</h2>

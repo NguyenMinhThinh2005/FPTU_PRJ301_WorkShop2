@@ -73,6 +73,10 @@ public class MainController extends HttpServlet {
                 request.getRequestDispatcher("PromotionManagement").forward(request, response);
             } else if ("addProductToPromotion".equals(action)) {
                 request.getRequestDispatcher("PromotionProductManagement").forward(request, response);
+            } else if ("requestReturn".equals(action) || "updateStatus".equals(action)) {
+                request.getRequestDispatcher("ReturnController").forward(request, response);
+            } else if ("createTicket".equals(action) || "replyTicket".equals(action)) {
+                request.getRequestDispatcher("CustomerCaresController").forward(request, response);
             } else {
                 request.getRequestDispatcher(url).forward(request, response);
             }

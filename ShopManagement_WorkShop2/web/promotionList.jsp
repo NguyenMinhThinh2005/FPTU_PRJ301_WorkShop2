@@ -5,7 +5,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Promotion Management</title>
+    <title>Promotion List</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         table {
             width: 100%;
@@ -69,7 +70,7 @@
     <h1>Promotion Management</h1>
     <div>
         <a href="welcome.jsp" class="btn">Back to Home</a>
-        <c:if test="${sessionScope.LOGIN_USER.roleID eq 'AD'}">
+        <c:if test="${sessionScope.LOGIN_USER.roleID eq 'AD' || sessionScope.LOGIN_USER.roleID eq 'MK'}">
             <a href="createPromotion.jsp" class="btn">Create New Promotion</a>
         </c:if>
     </div>

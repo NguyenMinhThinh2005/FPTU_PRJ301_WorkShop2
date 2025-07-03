@@ -198,4 +198,56 @@ public class ProductDAO {
         }
         return products;
     }
+
+    // Phân trang cho sản phẩm
+    public List<Product> getProductsByPage(int offset, int limit) throws SQLException, ClassNotFoundException {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM tblProducts ORDER BY productID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, offset);
+            ps.setInt(2, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getInt("productID"));
+                product.setName(rs.getString("name"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setSellerID(rs.getString("sellerID"));
+                product.setStatus(rs.getString("status"));
+                list.add(product);
+            }
+        }
+        return list;
+    }
+
+    public int getProductCount() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT COUNT(*) FROM tblProducts";
+        try (Connection conn = DBUtils.getConnection(); Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
+
+    // Lấy sản phẩm active và còn hàng cho Buyer
+    public List<Product> getAllActiveAvailable() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM tblProducts WHERE status = 'active' AND quantity > 0";
+        List<Product> list = new ArrayList<>();
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getInt("productID"));
+                product.setName(rs.getString("name"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setSellerID(rs.getString("sellerID"));
+                product.setStatus(rs.getString("status"));
+                list.add(product);
+            }
+        }
+        return list;
+    }
 }

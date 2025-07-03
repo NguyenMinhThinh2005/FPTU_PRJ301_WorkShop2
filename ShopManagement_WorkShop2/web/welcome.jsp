@@ -19,6 +19,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Welcome</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-light">
     <div class="container mt-5">
@@ -39,6 +40,9 @@
                 <a href="CategoryManagement" class="btn btn-warning">Category Management</a>
             </c:if>
             <a href="PromotionManagement" class="btn btn-success">Promotion Management</a>
+            <c:if test="${sessionScope.LOGIN_USER.roleID eq 'BU'}">
+                <a href="ProductManagement" class="btn" style="background:#007bff;">Xem sản phẩm</a>
+            </c:if>
         </div>
     </div>
 </body>

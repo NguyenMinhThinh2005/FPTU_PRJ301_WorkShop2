@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import utils.DBUtils;
@@ -127,5 +128,35 @@ public class PromotionDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    // Phân trang cho promotion
+    public List<Promotion> getPromotionsByPage(int offset, int limit) throws SQLException, ClassNotFoundException {
+        List<Promotion> list = new ArrayList<>();
+        String sql = "SELECT * FROM tblPromotions ORDER BY promoID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, offset);
+            ps.setInt(2, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Promotion promotion = new Promotion();
+                promotion.setName(rs.getString("name"));
+                promotion.setPromoID(rs.getInt("promoID"));
+                promotion.setDiscountPercent(rs.getDouble("discountPercent"));
+                promotion.setStartDate(rs.getDate("startDate"));
+                promotion.setEndDate(rs.getDate("endDate"));
+                promotion.setStatus(rs.getString("status"));
+                list.add(promotion);
+            }
+        }
+        return list;
+    }
+
+    public int getPromotionCount() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT COUNT(*) FROM tblPromotions";
+        try (Connection conn = DBUtils.getConnection(); Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
     }
 }

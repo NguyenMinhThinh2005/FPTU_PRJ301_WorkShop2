@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gắn Sản phẩm với Khuyến mãi</title>
+    <title>Promotion Product Link</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         .msg { color: green; }
         table { border-collapse: collapse; width: 80%; margin: 24px auto; }
@@ -14,7 +15,7 @@
 <body>
 <%
     User user = (User) session.getAttribute("LOGIN_USER");
-    if (user == null || !"AD".equals(user.getRoleID())) {
+    if (user == null || (!"AD".equals(user.getRoleID()) && !"MK".equals(user.getRoleID()))) {
         response.sendRedirect("login.jsp");
         return;
     }

@@ -18,7 +18,7 @@ public class LogoutController extends HttpServlet {
         // Huỷ session
         req.getSession().invalidate();
         // Redirect về form login
-        resp.sendRedirect(req.getContextPath() + "/LoginController");
+        resp.sendRedirect(req.getContextPath() + "/login.jsp");
     }
 
     @Override

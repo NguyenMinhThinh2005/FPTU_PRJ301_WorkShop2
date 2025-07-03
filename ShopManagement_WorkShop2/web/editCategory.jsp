@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>Edit Category</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h2>Edit Category</h2>

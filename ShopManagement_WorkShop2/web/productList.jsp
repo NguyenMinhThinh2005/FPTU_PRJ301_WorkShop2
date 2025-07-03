@@ -5,7 +5,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Product Management</title>
+    <title>Product List</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         table {
             width: 100%;

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import dto.User;
 
 @WebServlet("/PromotionProductManagement")
 public class PromotionProductManagement extends HttpServlet {
@@ -20,6 +21,12 @@ public class PromotionProductManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
+        // Kiểm tra session và quyền
+        User user = (User) req.getSession().getAttribute("LOGIN_USER");
+        if (user == null || (!"AD".equals(user.getRoleID()) && !"MK".equals(user.getRoleID()))) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
         // Load lên data để render form
         req.setAttribute("promotionList", promoDao.getAll());
         try {
@@ -35,6 +42,12 @@ public class PromotionProductManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
+        // Kiểm tra session và quyền
+        User user = (User) req.getSession().getAttribute("LOGIN_USER");
+        if (user == null || (!"AD".equals(user.getRoleID()) && !"MK".equals(user.getRoleID()))) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
         String action = req.getParameter("action");
         String msg = "";
         try {

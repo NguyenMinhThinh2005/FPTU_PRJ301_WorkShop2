@@ -50,13 +50,16 @@ public class ProductManagement extends HttpServlet {
         try {
             switch (action) {
                 case "createProduct":
-                    create(request, response);
-                    break;
                 case "deleteProduct":
-                    delete(request, response);
-                    break;
                 case "updateProduct":
-                    update(request, response);
+                    // Chỉ Seller hoặc Admin mới được CRUD
+                    if (!"SE".equals(user.getRoleID()) && !"AD".equals(user.getRoleID())) {
+                        response.sendRedirect("login.jsp");
+                        return;
+                    }
+                    if ("createProduct".equals(action)) create(request, response);
+                    if ("deleteProduct".equals(action)) delete(request, response);
+                    if ("updateProduct".equals(action)) update(request, response);
                     break;
                 case "searchProduct":
                     productList = search(request, response);

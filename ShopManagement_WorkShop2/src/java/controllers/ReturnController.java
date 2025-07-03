@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import dao.ReturnDAO;
+import dto.User;
 
 /**
  *
@@ -69,10 +70,19 @@ public class ReturnController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("LOGIN_USER");
         String action = request.getParameter("action");
         String message = "";
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
         if (action != null) {
             if (action.equals("requestReturn")) {
+                if (!"BU".equals(user.getRoleID())) {
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
                 try {
                     int invoiceID = Integer.parseInt(request.getParameter("invoiceID"));
                     String reason = request.getParameter("reason");
@@ -82,6 +92,10 @@ public class ReturnController extends HttpServlet {
                     message = "Lỗi dữ liệu đầu vào.";
                 }
             } else if (action.equals("updateStatus")) {
+                if (!"AD".equals(user.getRoleID())) {
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
                 try {
                     int returnID = Integer.parseInt(request.getParameter("returnID"));
                     String status = request.getParameter("status");

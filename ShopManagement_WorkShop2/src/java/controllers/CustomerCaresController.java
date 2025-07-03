@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import dao.CustomerCaresDAO;
+import dto.User;
 
 /**
  *
@@ -69,16 +70,29 @@ public class CustomerCaresController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("LOGIN_USER");
         String action = request.getParameter("action");
         String message = "";
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
         if (action != null) {
             if (action.equals("createTicket")) {
+                if (!"BU".equals(user.getRoleID())) {
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
                 String userID = request.getParameter("userID");
                 String subject = request.getParameter("subject");
                 String content = request.getParameter("content");
                 boolean result = CustomerCaresDAO.createTicket(userID, subject, content);
                 message = result ? "Gửi phản hồi thành công." : "Gửi phản hồi thất bại.";
             } else if (action.equals("replyTicket")) {
+                if (!"CS".equals(user.getRoleID())) {
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
                 try {
                     int ticketID = Integer.parseInt(request.getParameter("ticketID"));
                     String reply = request.getParameter("reply");

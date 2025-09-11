@@ -5,11 +5,10 @@
 package dao;
 
 import dto.Category;
-import utils.DBUtils;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import utils.DBUtils;
 
 public class CategoryDAO {
 
@@ -96,6 +95,34 @@ public class CategoryDAO {
             }
         }
         return list;
+    }
+
+    // Phân trang cho category
+    public List<Category> getCategoriesByPage(int offset, int limit) throws SQLException, ClassNotFoundException {
+        List<Category> list = new ArrayList<>();
+        String sql = "SELECT * FROM tblCategories ORDER BY categoryID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try (Connection con = DBUtils.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, offset);
+            ps.setInt(2, limit);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Category(
+                        rs.getInt("categoryID"),
+                        rs.getString("categoryName"),
+                        rs.getString("description")
+                    ));
+                }
+            }
+        }
+        return list;
+    }
+
+    public int getCategoryCount() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT COUNT(*) FROM tblCategories";
+        try (Connection con = DBUtils.getConnection(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
     }
 }
 

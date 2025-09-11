@@ -73,18 +73,26 @@ public class UserDAO {
         }
     }
 
-    public List<User> getAllUsers() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT userID, fullName, roleID, phone FROM tblUsers";
-        List<User> users = new ArrayList<>();
-        try (Connection con = DBUtils.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                users.add(new User(rs.getString("userID"), rs.getString("fullName"), rs.getString("roleID"), null, rs.getString("phone")));
+        public List<User> getAllUsers() throws SQLException, ClassNotFoundException {
+            String sql = "SELECT userID, fullName, roleID, phone FROM tblUsers";
+            List<User> users = new ArrayList<>();
+            try (Connection con = DBUtils.getConnection();
+                 PreparedStatement ps = con.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    // Sửa lỗi ở đây: Đảm bảo thứ tự các tham số khớp với constructor của User DTO
+                    users.add(new User(
+                        rs.getString("fullName"), // fullName
+                        rs.getString("userID"),   // userID
+                        null,                     // password (không lấy từ DB trong phương thức này)
+                        rs.getString("roleID"),   // roleID
+                        rs.getString("phone")     // phone
+                    ));
+                }
             }
+            return users;
         }
-        return users;
-    }
+        
 
     public boolean update(User user) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE tblUsers SET fullName=?, roleID=?, password=?, phone=? WHERE userID=?";
@@ -142,9 +150,8 @@ public class UserDAO {
             ps.setInt(4, limit);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(new User(rs.getString("userID"), rs.getString("fullName"),
-                                      rs.getString("roleID"), null, rs.getString("phone")));
-                }
+                    list.add(new User(rs.getString("fullName"), rs.getString("userID"),
+                                  null, rs.getString("roleID"), rs.getString("phone")));}
             }
         }
         return list;
@@ -160,12 +167,12 @@ public class UserDAO {
             ps.setInt(2, limit);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    User u = new User(
-                        rs.getString("userID"),
-                        rs.getString("fullName"),
-                        rs.getString("roleID"),
-                        null,
-                        rs.getString("phone")
+            User u = new User(
+            rs.getString("fullName"),
+            rs.getString("userID"),
+            rs.getString("roleID"),
+            null,
+            rs.getString("phone")
                     );
                     list.add(u);
                 }
@@ -183,29 +190,31 @@ public class UserDAO {
         }
         return 0;
     }
-    public List<User> searchByUserIDFullNameRoleID(String search) throws Exception {
-    List<User> list = new ArrayList<>();
-    String sql = "SELECT userID, fullName, roleID, phone FROM tblUsers WHERE userID LIKE ? OR fullName LIKE ? OR roleID LIKE ?";
-    try (Connection con = DBUtils.getConnection();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        String key = "%" + search + "%";
-        ps.setString(1, key);
-        ps.setString(2, key);
-        ps.setString(3, key);
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                list.add(new User(
-                    rs.getString("userID"),
-                    rs.getString("fullName"),
-                    rs.getString("roleID"),
-                    null,
-                    rs.getString("phone")
-                ));
+        public List<User> searchByUserIDFullNameRoleID(String search) throws Exception {
+            List<User> list = new ArrayList<>();
+            String sql = "SELECT userID, fullName, roleID, phone FROM tblUsers WHERE userID LIKE ? OR fullName LIKE ? OR roleID LIKE ?";
+            try (Connection con = DBUtils.getConnection();
+                 PreparedStatement ps = con.prepareStatement(sql)) {
+                String key = "%" + search + "%";
+                ps.setString(1, key);
+                ps.setString(2, key);
+                ps.setString(3, key);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        // Sửa lỗi ở đây: Đảm bảo thứ tự các tham số khớp với constructor của User DTO
+                        list.add(new User(
+                            rs.getString("fullName"), // fullName
+                            rs.getString("userID"),   // userID
+                            null,                     // password (không lấy từ DB trong phương thức này)
+                            rs.getString("roleID"),   // roleID
+                            rs.getString("phone")     // phone
+                        ));
+                    }
+                }
             }
+            return list;
         }
-    }
-    return list;
-}
+        
 
   }
 

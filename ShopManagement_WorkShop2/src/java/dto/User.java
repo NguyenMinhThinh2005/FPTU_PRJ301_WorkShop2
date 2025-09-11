@@ -4,13 +4,14 @@
  */
 package dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Thinh
  */
-public class User {
+public class User implements Serializable{
 
     private String fullName;
     private String userID;

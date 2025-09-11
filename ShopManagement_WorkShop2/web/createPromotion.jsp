@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Promotion</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             max-width: 500px;

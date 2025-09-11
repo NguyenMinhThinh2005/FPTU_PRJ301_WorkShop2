@@ -7,7 +7,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Add New Category</title>
+    <title>Add Category</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h2>Add Category</h2>

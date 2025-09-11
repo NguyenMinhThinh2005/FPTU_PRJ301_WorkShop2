@@ -14,7 +14,8 @@
 %>
 <html>
 <head>
-    <title>Category Management</title>
+    <title>Category List</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h2>Category List</h2>

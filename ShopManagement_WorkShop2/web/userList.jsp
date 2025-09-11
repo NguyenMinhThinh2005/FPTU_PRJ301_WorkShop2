@@ -14,7 +14,8 @@
 %>
 <html>
 <head>
-    <title>User Management</title>
+    <title>User List</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h2>User List</h2>

@@ -3,7 +3,8 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
-    <title>Sản phẩm giảm giá</title>
+    <title>Discounted Product List</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         table { border-collapse: collapse; width: 85%; margin: 24px auto; }
         th, td { border: 1px solid #999; padding: 6px;}
